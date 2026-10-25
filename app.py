@@ -126,7 +126,7 @@ if st.session_state.files:
     st.markdown('<p class="section-label">03 / Review</p>', unsafe_allow_html=True)
     st.markdown("#### Your workspace, at a glance")
     df = pd.DataFrame(st.session_state.files)
-    display_columns = [column for column in ["name", "extension", "category", "size_bytes"] if column in df.columns]
+    display_columns = [column for column in ["name", "suggested_name", "extension", "category", "size_bytes"] if column in df.columns]
     st.dataframe(df[display_columns], use_container_width=True, hide_index=True)
     counts = df["category"].value_counts().rename_axis("Category").reset_index(name="Files")
     st.bar_chart(counts.set_index("Category"))
