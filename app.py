@@ -14,23 +14,52 @@ st.set_page_config(page_title="SlothDesk AI", page_icon="🦥", layout="wide", i
 
 st.markdown("""
 <style>
-:root { --sloth-ink:#17211d; --sloth-muted:#6c7972; --sloth-green:#b8f36b; --sloth-paper:#f6f7f2; }
-html, body, [class*="css"] { font-family: 'Segoe UI', Arial, sans-serif; }
-.stApp { background: var(--sloth-paper); color: var(--sloth-ink); }
-[data-testid="stSidebar"] { background: #202b26; }
-[data-testid="stSidebar"] * { color: #f4f7f1; }
-.hero { background: #202b26; border-radius: 24px; padding: 32px 36px; color: #f5f7f2; margin-bottom: 20px; }
-.hero h1 { color: #f5f7f2; font-size: clamp(2rem,4vw,3.2rem); line-height: 1.05; letter-spacing: -0.06em; margin: 0; }
-.hero p { color: #c7d1c9; font-size: 1rem; max-width: 700px; margin: 12px 0 0; }
-.hero .tag { display:inline-block; background:var(--sloth-green); color:#17211d; border-radius:999px; padding:5px 10px; font-size:.75rem; font-weight:800; margin-bottom:18px; }
-.metric-card { background:white; border:1px solid #e4e9e1; border-radius:16px; padding:18px 20px; min-height:100px; }
-.metric-label { color:#6c7972; font-size:.78rem; font-weight:700; text-transform:uppercase; letter-spacing:.08em; }
-.metric-value { font-size:1.8rem; font-weight:800; letter-spacing:-.05em; color:#202b26; margin-top:5px; }
-.section-label { font-size:.75rem; letter-spacing:.12em; text-transform:uppercase; font-weight:800; color:#6c7972; }
-div.stButton > button[kind="primary"] { background:#b8f36b; color:#17211d; border:0; border-radius:10px; font-weight:800; }
-div.stButton > button { border-radius:10px; }
-div[data-testid="stDataFrame"] { border-radius:12px; overflow:hidden; }
-.small-note { color:#6c7972; font-size:.86rem; }
+:root { --sd-ink:#17231e; --sd-muted:#78837d; --sd-lime:#c8f36a; --sd-paper:#f4f5f0; --sd-line:#e3e7df; --sd-white:#fff; }
+html, body, [class*="css"] { font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+.stApp { background:var(--sd-paper); color:var(--sd-ink); }
+[data-testid="stHeader"] { background:rgba(244,245,240,.92); }
+[data-testid="stMainBlockContainer"] { padding-top:1.65rem; padding-bottom:3rem; max-width:1500px; }
+[data-testid="stSidebar"] { background:#17231e; border-right:1px solid #2c3932; }
+[data-testid="stSidebar"] > div { padding:1.4rem 1rem; }
+[data-testid="stSidebar"] * { color:#edf2e9; }
+[data-testid="stSidebar"] hr { border-color:#354139; margin:1.2rem 0; }
+[data-testid="stSidebar"] label, [data-testid="stSidebar"] .stCaption { color:#b4c0b7 !important; }
+[data-testid="stSidebar"] input { background:#243129; border:1px solid #3c4a41; border-radius:10px; }
+.brand-row { display:flex; align-items:center; gap:11px; padding:3px 0 8px; }
+.brand-mark { width:39px; height:39px; display:flex; align-items:center; justify-content:center; border-radius:13px; background:var(--sd-lime); color:#17231e; font-size:23px; }
+.brand-name { color:#f4f7f1; font-size:1.18rem; font-weight:850; letter-spacing:-.045em; }
+.brand-sub { color:#a8b5ab; font-size:.72rem; margin-top:2px; }
+.hero { position:relative; overflow:hidden; background:#17231e; border:1px solid #2b3931; border-radius:25px; padding:31px 34px 29px; color:#f5f7f2; margin:0 0 19px; box-shadow:0 12px 35px rgba(26,39,31,.07); }
+.hero:after { content:""; position:absolute; width:260px; height:260px; border:1px solid rgba(200,243,106,.22); border-radius:50%; right:-60px; top:-105px; box-shadow:0 0 0 28px rgba(200,243,106,.035),0 0 0 58px rgba(200,243,106,.025); pointer-events:none; }
+.hero .tag { display:inline-flex; align-items:center; gap:7px; background:rgba(200,243,106,.12); color:var(--sd-lime); border:1px solid rgba(200,243,106,.22); border-radius:999px; padding:6px 10px; font-size:.68rem; font-weight:850; letter-spacing:.1em; margin-bottom:16px; }
+.hero h1 { color:#f5f7f2; font-size:clamp(2rem,3.4vw,3.25rem); line-height:1.02; letter-spacing:-.065em; font-weight:850; margin:0; max-width:650px; }
+.hero p { color:#bdc8bf; font-size:.94rem; line-height:1.7; max-width:590px; margin:14px 0 0; }
+.hero-foot { display:flex; flex-wrap:wrap; gap:8px; margin-top:21px; }
+.hero-chip { display:inline-flex; align-items:center; gap:7px; padding:7px 10px; border-radius:9px; color:#e0e8df; background:#243129; border:1px solid #354139; font-size:.73rem; }
+.dot { width:7px; height:7px; border-radius:50%; background:var(--sd-lime); display:inline-block; }
+.metric-card { background:var(--sd-white); border:1px solid var(--sd-line); border-radius:17px; padding:17px 19px; min-height:104px; box-shadow:0 3px 12px rgba(24,38,29,.025); transition:transform .18s ease,border-color .18s ease; }
+.metric-card:hover { transform:translateY(-2px); border-color:#cbd5c9; }
+.metric-top { display:flex; align-items:center; justify-content:space-between; gap:8px; }
+.metric-label { color:var(--sd-muted); font-size:.7rem; font-weight:800; text-transform:uppercase; letter-spacing:.105em; }
+.metric-icon { display:flex; align-items:center; justify-content:center; width:30px; height:30px; border-radius:10px; background:#f0f5e9; color:#34472f; font-size:1rem; }
+.metric-value { font-size:1.85rem; line-height:1.2; font-weight:850; letter-spacing:-.065em; color:#17231e; margin-top:9px; }
+.metric-sub { color:#8a948e; font-size:.72rem; margin-top:3px; }
+.section-label { font-size:.68rem; letter-spacing:.15em; text-transform:uppercase; font-weight:850; color:#78847c; margin:0 0 5px; }
+h1,h2,h3,h4 { letter-spacing:-.04em; }
+h3 { font-weight:800; }
+[data-testid="stMarkdownContainer"] h4 { font-size:1.13rem; margin-top:.1rem; margin-bottom:.45rem; }
+[data-testid="stMarkdownContainer"] p { line-height:1.65; }
+div.stButton > button { min-height:2.7rem; border-radius:11px; font-weight:750; border:1px solid #dce2d8; transition:all .16s ease; }
+div.stButton > button:hover { border-color:#9ba99c; transform:translateY(-1px); }
+div.stButton > button[kind="primary"] { background:var(--sd-lime); color:#17231e; border:1px solid var(--sd-lime); box-shadow:0 3px 0 rgba(23,35,30,.06); }
+div.stButton > button[kind="primary"]:hover { background:#d5fb83; border-color:#d5fb83; }
+[data-testid="stTextInput"] input, [data-testid="stNumberInput"] input { border-radius:10px; border-color:#dce2d8; background:#fff; }
+[data-testid="stCheckbox"] label { font-size:.9rem; }
+[data-testid="stDataFrame"] { border:1px solid var(--sd-line); border-radius:13px; overflow:hidden; background:#fff; }
+[data-testid="stAlert"] { border-radius:12px; }
+[data-testid="stExpander"] { background:#fff; border:1px solid var(--sd-line); border-radius:13px; }
+hr { border-color:var(--sd-line); }
+@media (max-width: 700px) { [data-testid="stMainBlockContainer"] { padding:1rem .8rem 2rem; } .hero { padding:24px 21px; border-radius:19px; } .hero:after { opacity:.35; right:-150px; } .metric-card { padding:14px; } .metric-value { font-size:1.5rem; } }
 </style>
 """, unsafe_allow_html=True)
 
@@ -42,8 +71,8 @@ if "last_results" not in st.session_state:
     st.session_state.last_results = []
 
 with st.sidebar:
-    st.markdown("## 🦥 SlothDesk")
-    st.caption("Local-first productivity assistant")
+    st.markdown('<div class="brand-row"><div class="brand-mark">🦥</div><div><div class="brand-name">SlothDesk AI</div><div class="brand-sub">Your private file workspace</div></div></div>', unsafe_allow_html=True)
+    st.caption("LOCAL-FIRST PRODUCTIVITY")
     st.divider()
     folder = st.text_input("Folder to organize", value=str(Path.home() / "Downloads"), help="Only this folder will be scanned. Nothing changes until you approve a plan.")
     recursive = st.checkbox("Include subfolders", value=False)
@@ -64,21 +93,22 @@ with st.sidebar:
 
 st.markdown("""
 <div class="hero">
-  <span class="tag">LESS BUSYWORK. MORE HEADSPACE.</span>
-  <h1>Let your files<br>sort themselves out.</h1>
-  <p>A calm, local-first workspace that finds the clutter, suggests a better home for your files, and waits for your approval before changing anything.</p>
+  <span class="tag"><span class="dot"></span> YOUR FILES. YOUR DEVICE. YOUR CALL.</span>
+  <h1>A clearer space for<br>everything you keep.</h1>
+  <p>Bring order to your downloads with thoughtful file suggestions, local AI, and a review-first workflow. Nothing moves until you say so.</p>
+  <div class="hero-foot"><span class="hero-chip">◉ Local by default</span><span class="hero-chip">↗ AI-powered suggestions</span><span class="hero-chip">✓ You approve every move</span></div>
 </div>
 """, unsafe_allow_html=True)
 
 top1, top2, top3 = st.columns(3)
 with top1:
-    st.markdown('<div class="metric-card"><div class="metric-label">Files scanned</div><div class="metric-value">' + str(len(st.session_state.files)) + '</div></div>', unsafe_allow_html=True)
+    st.markdown('<div class="metric-card"><div class="metric-top"><div class="metric-label">Files scanned</div><div class="metric-icon">▤</div></div><div class="metric-value">' + str(len(st.session_state.files)) + '</div><div class="metric-sub">In the selected folder</div></div>', unsafe_allow_html=True)
 with top2:
     total_bytes = sum(int(item.get("size_bytes", 0)) for item in st.session_state.files)
-    st.markdown('<div class="metric-card"><div class="metric-label">Space reviewed</div><div class="metric-value">' + (f"{total_bytes / (1024 * 1024):.1f} MB" if total_bytes < 1024**3 else f"{total_bytes / (1024**3):.2f} GB") + '</div></div>', unsafe_allow_html=True)
+    st.markdown('<div class="metric-card"><div class="metric-top"><div class="metric-label">Space reviewed</div><div class="metric-icon">◫</div></div><div class="metric-value">' + (f"{total_bytes / (1024 * 1024):.1f} MB" if total_bytes < 1024**3 else f"{total_bytes / (1024**3):.2f} GB") + '</div><div class="metric-sub">Metadata checked locally</div></div>', unsafe_allow_html=True)
 with top3:
     pending = len(st.session_state.plan)
-    st.markdown('<div class="metric-card"><div class="metric-label">Suggested actions</div><div class="metric-value">' + str(pending) + '</div></div>', unsafe_allow_html=True)
+    st.markdown('<div class="metric-card"><div class="metric-top"><div class="metric-label">Suggested actions</div><div class="metric-icon">✳</div></div><div class="metric-value">' + str(pending) + '</div><div class="metric-sub">Waiting for your review</div></div>', unsafe_allow_html=True)
 
 st.write("")
 left, right = st.columns([1, 1], gap="large")
