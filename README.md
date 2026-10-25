@@ -207,20 +207,6 @@ python -m pytest -q
 
 For safety-related changes, include tests for paths outside the selected folder, existing destination files, invalid AI output, and filesystem errors where relevant.
 
-## 🛣️ Roadmap
-
-- [x] Metadata-based folder scanning
-- [x] Deterministic file categorization
-- [x] Optional local Ollama suggestions
-- [x] Preview and explicit approval before file moves
-- [x] Prevent overwrites and out-of-folder operations
-- [x] Duplicate detection with SHA-256
-- [x] CSV activity export
-- [ ] Improve AI suggestion review and editing
-- [ ] Add undo support and stronger transaction handling
-- [ ] Add performance measurements and verified screenshots/demo media
-- [ ] Document model quality, latency, and hardware trade-offs
-
 ## 🌍 Open innovation
 
 SlothDesk explores how open-weight AI can support practical everyday productivity without making a hosted proprietary AI service a requirement. Combining local inference with deterministic rules and explicit user approval keeps the workflow useful, inspectable, and adaptable.
