@@ -1,112 +1,239 @@
-# 🦥 SlothDesk AI — Your Local AI Productivity Assistant
+# 🦥 SlothDesk AI
+### Your local-first AI productivity assistant
 
-**Less busywork. More headspace.** SlothDesk helps organize cluttered folders using local-first automation and optional open-weight AI. It scans file metadata, suggests categories and clearer filenames, previews every proposed move, and waits for explicit approval.
+**Less busywork. More headspace.**
 
-> Status: MVP under active development. This is a local desktop-style web app, not a hosted file-management service.
+SlothDesk AI helps turn cluttered folders into organized workspaces. It scans file metadata, proposes sensible categories and clearer filenames, and presents a reviewable plan before making changes. Optional AI suggestions run through **Ollama on your own machine**—no paid AI API is required for the core workflow.
 
-## Why this project?
+<p align="center">
+  <a href="https://github.com/devanshshukla-3004/SlothDesk-AI-Your-local-AI-productivity-assistant">
+    <img alt="Python" src="https://img.shields.io/badge/Python-3.10%2B-3776AB?style=for-the-badge&logo=python&logoColor=white">
+  </a>
+  <img alt="Streamlit" src="https://img.shields.io/badge/UI-Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white">
+  <img alt="Local AI" src="https://img.shields.io/badge/AI-Ollama%20(optional)-1F6B45?style=for-the-badge">
+  <img alt="License" src="https://img.shields.io/badge/License-MIT-6B8E23?style=for-the-badge">
+</p>
 
-Most file-organizing tools ask you to upload your files or rely on a remote AI API. SlothDesk is designed around a different trade-off: keep file operations on your machine, use a locally running open-weight model when available, and make the proposed actions transparent.
+<p align="center">
+  <a href="#-why-slothdesk">Why SlothDesk</a> ·
+  <a href="#-features">Features</a> ·
+  <a href="#-quick-start">Quick start</a> ·
+  <a href="#-local-ai-optional">Local AI</a> ·
+  <a href="#-safety-and-privacy">Safety & privacy</a> ·
+  <a href="#-development">Development</a>
+</p>
 
-### Current MVP features
+---
 
-- Scan a folder you choose, with optional recursive scanning and a configurable file limit.
-- Categorize common document, spreadsheet, presentation, image, audio, video, archive, and code formats.
-- Optionally ask an Ollama model for category and filename suggestions using **filename and extension metadata only**.
-- Preview a move plan before applying it.
-- Refuse paths outside the selected folder and skip existing destinations instead of overwriting files.
-- Optionally find byte-identical files with local SHA-256 hashing.
-- Export an activity report as CSV.
-- Continue with deterministic rules when Ollama is not running.
+## 🌿 Why SlothDesk?
 
-### Privacy and safety
+File organization should not mean uploading personal files to a third-party service or handing over control to an opaque automation tool.
 
-- The app does not upload scanned files to a SlothDesk server.
-- Scanning reads file metadata; it does not read file contents.
-- When local AI suggestions are requested, only the filename and extension are sent to the Ollama service configured on your machine.
-- Duplicate detection reads file bytes locally to calculate hashes.
-- File moves require a separate confirmation step.
-- The MVP does not delete files and does not overwrite existing destinations.
+SlothDesk is built around three principles:
 
-Use a test folder first. This is an early-stage tool; always review the plan before approving file operations.
+- **Local-first:** work with folders on your own machine.
+- **AI when you want it:** use a locally running open-weight model for optional suggestions, or rely on deterministic rules.
+- **Human approval first:** inspect the proposed actions before any files are moved.
 
-## Quick start (Windows PowerShell)
+> **Project status:** Early-stage MVP under active development. SlothDesk is a local Streamlit app, not a hosted file-management service.
 
-1. Install Python 3.10 or newer.
-2. Clone the repository and open its directory:
+## ✨ Features
 
-   ```powershell
-   git clone https://github.com/devanshshukla-3004/SlothDesk-AI-Your-local-AI-productivity-assistant.git
-   cd SlothDesk-AI-Your-local-AI-productivity-assistant
-   ```
+| Capability | What it does |
+| --- | --- |
+| **Folder scanning** | Scans a selected folder, with optional recursive scanning and a configurable file limit. |
+| **Automatic categorization** | Sorts common documents, spreadsheets, presentations, images, audio, video, archives, and code files using file extensions. |
+| **Optional AI suggestions** | Uses Ollama to suggest a category and clearer filename from the filename and extension only. |
+| **Reviewable action plan** | Previews proposed moves before you approve them. Scanning and planning do not move files. |
+| **Guarded file operations** | Blocks paths outside the selected folder and skips destinations that already exist. |
+| **Duplicate detection** | Can identify byte-identical files using local SHA-256 hashes. |
+| **CSV activity report** | Exports an activity report so you can inspect the results. |
+| **Rule-based fallback** | Core categorization remains available when Ollama is not installed or running. |
 
-3. Create and activate a virtual environment:
+## 🔄 How it works
 
-   ```powershell
-   py -m venv .venv
-   .\.venv\Scripts\Activate.ps1
-   ```
+1. **Choose a folder** — select a working folder to inspect.
+2. **Scan metadata** — SlothDesk collects file paths, names, extensions, sizes, and modification times.
+3. **Generate suggestions** — deterministic rules categorize files; optionally, Ollama suggests category and filename improvements.
+4. **Review the plan** — inspect the proposed organization before applying anything.
+5. **Approve file moves** — only the approved plan is applied, with safeguards against out-of-folder operations and overwrites.
+6. **Review results** — inspect the operation status and export a CSV activity report.
 
-   If PowerShell blocks activation, use a process-scoped policy for this terminal only:
+```text
+Choose folder
+    ↓
+Scan metadata
+    ↓
+Suggest categories and filenames
+    ↓
+Preview proposed changes
+    ↓
+User approval
+    ↓
+Apply guarded moves + export report
+```
 
-   ```powershell
-   Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
-   .\.venv\Scripts\Activate.ps1
-   ```
+## 🚀 Quick start
 
-4. Install dependencies and launch the app:
+### Requirements
 
-   ```powershell
-   python -m pip install -r requirements.txt
-   streamlit run app.py
-   ```
+- Python **3.10 or newer**
+- Windows, macOS, or Linux environment capable of running Streamlit
+- [Ollama](https://ollama.com/) only if you want local AI suggestions
 
-5. Open the local URL Streamlit prints (usually `http://localhost:8501`). Start by selecting a dedicated test folder.
+### 1. Clone the repository
 
-## Enable local AI with Ollama (optional)
+```bash
+git clone https://github.com/devanshshukla-3004/SlothDesk-AI-Your-local-AI-productivity-assistant.git
+cd SlothDesk-AI-Your-local-AI-productivity-assistant
+```
 
-1. Install Ollama from [ollama.com](https://ollama.com/).
-2. Download a small model suitable for your hardware, for example:
+### 2. Create a virtual environment
 
-   ```powershell
+**Windows PowerShell**
+
+```powershell
+py -m venv .venv
+.\.venv\Scripts\Activate.ps1
+```
+
+If PowerShell blocks activation, allow it for the current terminal session only:
+
+```powershell
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+.\.venv\Scripts\Activate.ps1
+```
+
+**macOS / Linux**
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+```
+
+### 3. Install dependencies
+
+```bash
+python -m pip install --upgrade pip
+python -m pip install -r requirements.txt
+```
+
+### 4. Run SlothDesk
+
+```bash
+streamlit run app.py
+```
+
+Open the local address printed by Streamlit—usually [http://localhost:8501](http://localhost:8501).
+
+**First run tip:** Start with a small test folder containing copies of files. Review every proposed action before approving it.
+
+## 🤖 Local AI (optional)
+
+SlothDesk can use [Ollama](https://ollama.com/) for local filename and category suggestions. AI is optional; the rule-based workflow can run without it.
+
+1. Install Ollama.
+2. Pull the default lightweight model:
+
+   ```bash
    ollama pull gemma3:1b
    ```
 
-3. Ensure Ollama is running, then use the **Local AI** panel in SlothDesk. If you use a different model, enter its installed model name in the sidebar.
+3. Ensure Ollama is running, then open SlothDesk and use the **Local AI** panel.
+4. If you use another installed model, select or enter its model name in the app.
 
-The default model is `gemma3:1b`. SlothDesk communicates with Ollama at `http://127.0.0.1:11434`; this can be changed when calling the Python API directly. A model may occasionally return invalid suggestions; those files are skipped rather than automatically renamed.
+**Default model:** `gemma3:1b`  
+**Default local endpoint:** `http://127.0.0.1:11434`
 
-## Run tests
+The app sends the model the filename and extension—not the contents of the file. Local inference performance depends on your hardware and chosen model. Invalid model suggestions are rejected rather than applied automatically.
 
-```powershell
-python -m pip install -r requirements.txt
+## 🔐 Safety and privacy
+
+SlothDesk is designed to keep file operations transparent and under your control.
+
+- **No SlothDesk upload service:** scanned files are not uploaded to a SlothDesk-hosted backend.
+- **Metadata-first scanning:** normal scanning does not read file contents.
+- **Local AI requests:** when enabled, only the filename and extension are sent to the configured Ollama service.
+- **Local duplicate hashing:** duplicate detection reads file bytes locally to calculate SHA-256 hashes.
+- **Approval before changes:** file moves require a separate confirmation step.
+- **No automatic deletion:** the current MVP does not delete files.
+- **No overwrites:** an existing destination is skipped.
+- **Path guards:** moves outside the selected root are blocked.
+
+Privacy note: if you configure Ollama to use a non-local endpoint, your model requests will go to that endpoint. Keep the default local endpoint if you want inference to remain on your machine.
+
+This is an early-stage project, not a substitute for backups. Test on copies and review the plan before applying file operations.
+
+## 🧰 Tech stack
+
+- **Python** — application and file-organization logic
+- **Streamlit** — interactive local web interface
+- **Ollama** — optional local model inference
+- **Requests** — communication with the Ollama API
+- **Pytest** — automated tests
+
+## 🗂️ Project structure
+
+```text
+SlothDesk-AI-Your-local-AI-productivity-assistant/
+├── app.py                 # Streamlit UI and approval workflow
+├── slothdesk/
+│   ├── organizer.py       # Scanning, categories, planning, hashing and guarded moves
+│   └── ai_engine.py       # Optional Ollama integration
+├── tests/                 # Automated tests
+├── .github/
+│   └── workflows/
+│       └── tests.yml      # GitHub Actions test workflow
+├── requirements.txt
+├── README.md
+└── LICENSE
+```
+
+## 🧪 Development
+
+### Run the test suite
+
+```bash
 python -m pytest -q
 ```
 
-## Architecture
+### Contribution workflow
 
-- `app.py` — Streamlit interface and explicit approval flow.
-- `slothdesk/organizer.py` — metadata scanning, categories, safe plan generation, duplicate hashing, and guarded moves.
-- `slothdesk/ai_engine.py` — optional local Ollama integration.
-- `tests/` — automated safety and organization tests.
+1. Fork the repository.
+2. Create a focused branch for your change.
+3. Add or update tests for behavior changes, especially file-safety logic.
+4. Run the test suite locally.
+5. Open a pull request describing the change and its impact.
 
-## Roadmap
+For safety-related changes, include tests for paths outside the selected folder, existing destination files, invalid AI output, and filesystem errors where relevant.
 
-- [x] Metadata-only folder scan
-- [x] Rule-based categories and safe plan preview
+## 🛣️ Roadmap
+
+- [x] Metadata-based folder scanning
+- [x] Deterministic file categorization
 - [x] Optional local Ollama suggestions
-- [x] Explicit approval before moves
-- [x] Prevent overwrite and out-of-folder operations
-- [x] Duplicate detection and CSV activity export
-- [ ] Improve AI suggestion review/editing
+- [x] Preview and explicit approval before file moves
+- [x] Prevent overwrites and out-of-folder operations
+- [x] Duplicate detection with SHA-256
+- [x] CSV activity export
+- [ ] Improve AI suggestion review and editing
 - [ ] Add undo support and stronger transaction handling
-- [ ] Add performance measurements and real demo screenshots
-- [ ] Publish a DEV write-up documenting open-model trade-offs
+- [ ] Add performance measurements and verified screenshots/demo media
+- [ ] Document model quality, latency, and hardware trade-offs
 
-## Built for open innovation
+## 🌍 Open innovation
 
-SlothDesk explores how open-weight models can make everyday automation more private and adaptable. Running inference locally can reduce reliance on closed hosted APIs, while deterministic rules keep the core workflow useful even when the model is unavailable.
+SlothDesk explores how open-weight AI can support practical everyday productivity without making a hosted proprietary AI service a requirement. Combining local inference with deterministic rules and explicit user approval keeps the workflow useful, inspectable, and adaptable.
 
-## License
+Built as an independent project for the **Hacktoberfest Open-Source AI Challenge — Week 3: Slow and Steady**.
 
-MIT — see [LICENSE](LICENSE).
+## 📄 License
+
+Distributed under the [MIT License](LICENSE).
+
+---
+
+<p align="center">
+  <strong>SlothDesk AI</strong><br>
+  Less busywork. More headspace. 🌿
+</p>
