@@ -14,9 +14,8 @@ st.set_page_config(page_title="SlothDesk AI", page_icon="🦥", layout="wide", i
 
 st.markdown("""
 <style>
-@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap');
 :root { --sloth-ink:#17211d; --sloth-muted:#6c7972; --sloth-green:#b8f36b; --sloth-paper:#f6f7f2; }
-html, body, [class*="css"] { font-family: 'Manrope', sans-serif; }
+html, body, [class*="css"] { font-family: 'Segoe UI', Arial, sans-serif; }
 .stApp { background: var(--sloth-paper); color: var(--sloth-ink); }
 [data-testid="stSidebar"] { background: #202b26; }
 [data-testid="stSidebar"] * { color: #f4f7f1; }
