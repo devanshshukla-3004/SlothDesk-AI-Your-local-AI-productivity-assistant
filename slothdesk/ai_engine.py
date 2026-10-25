@@ -4,6 +4,7 @@ from __future__ import annotations
 import json
 import os
 import re
+from pathlib import Path
 from typing import Any
 
 import requests
@@ -60,4 +61,12 @@ def suggest_organization(filename: str, extension: str, model: str = DEFAULT_MOD
     )
     response.raise_for_status()
     payload = response.json()
-    return _clean_json(payload.get("response", ""))
+    result = _clean_json(payload.get("response", ""))
+    original_suffix = Path(filename).suffix
+    if original_suffix:
+        proposed = Path(result["suggested_name"])
+        if proposed.suffix.lower() != original_suffix.lower():
+            result["suggested_name"] = proposed.stem + original_suffix
+    elif Path(result["suggested_name"]).suffix:
+        result["suggested_name"] = Path(result["suggested_name"]).stem
+    return result
