@@ -26,9 +26,9 @@ st.markdown("""
   --sd-sidebar: #172b21;
 }
 .stApp { background: var(--sd-bg) !important; color: var(--sd-text) !important; }
-[data-testid="stHeader"] { background: transparent !important; }
+[data-testid="stHeader"] { background: var(--sd-bg) !important; height: 3rem !important; }
 [data-testid="stMainBlockContainer"], .block-container {
-  padding-top: 2.5rem !important; padding-bottom: 3rem !important;
+  padding-top: 4rem !important; padding-bottom: 3rem !important;
   max-width: 1500px;
 }
 /* Sidebar scroll and bottom breathing room */
@@ -115,13 +115,15 @@ st.markdown("""
 }
 [data-baseweb="slider"] [data-testid="stSliderTrack"] { background: #c8f26b !important; }
 [data-baseweb="slider"] [data-testid="stSliderThumb"] { background: #c8f26b !important; }
+[data-baseweb="slider"] [data-testid="stSliderTrack"] > div { background: #3f7d3a !important; }
+[data-testid="stSlider"] [data-baseweb="slider"] > div > div { accent-color: #3f7d3a !important; }
 /* Contrast for metric subtitles, labels, and helper copy */
 .metric-sub, .metric-label, .section-label { color: #526557 !important; }
 [data-testid="stCaptionContainer"], [data-testid="stMarkdownContainer"] small {
   color: #526557 !important;
 }
-.stApp [data-testid="stMain"] [data-testid="stWidgetLabel], .stApp [data-testid="stMain"] [data-testid="stWidgetLabel"] p { color: var(--sd-text) !important; -webkit-text-fill-color: var(--sd-text) !important; }
-.stApp [data-testid="stSidebar"] [data-testid="stWidgetLabel], .stApp [data-testid="stSidebar"] [data-testid="stWidgetLabel"] p, .stApp [data-testid="stSidebar"] label, .stApp [data-testid="stSidebar"] label p, .stApp [data-testid="stSidebar"] [data-testid="stCheckbox"] p, .stApp [data-testid="stSidebar"] [data-testid="stTickBarMin"], .stApp [data-testid="stSidebar"] [data-testid="stTickBarMax"], .stApp [data-testid="stSidebar"] [data-testid="stSliderThumbValue"] { color: #e8efe9 !important; -webkit-text-fill-color: #e8efe9 !important; }
+.stApp [data-testid="stMain"] [data-testid="stWidgetLabel"], .stApp [data-testid="stMain"] [data-testid="stWidgetLabel"] p { color: var(--sd-text) !important; -webkit-text-fill-color: var(--sd-text) !important; }
+.stApp [data-testid="stSidebar"] [data-testid="stWidgetLabel"], .stApp [data-testid="stSidebar"] [data-testid="stWidgetLabel"] p, .stApp [data-testid="stSidebar"] label, .stApp [data-testid="stSidebar"] label p, .stApp [data-testid="stSidebar"] [data-testid="stCheckbox"] p, .stApp [data-testid="stSidebar"] [data-testid="stTickBarMin"], .stApp [data-testid="stSidebar"] [data-testid="stTickBarMax"], .stApp [data-testid="stSidebar"] [data-testid="stSliderThumbValue"] { color: #e8efe9 !important; -webkit-text-fill-color: #e8efe9 !important; }
 /* Restore light readable helper text inside the dark sidebar */
 [data-testid="stSidebar"] [data-testid="stCaptionContainer"],
 [data-testid="stSidebar"] [data-testid="stCaptionContainer"] * { color: #c0cfc2 !important; }
@@ -134,7 +136,7 @@ st.markdown("""
 hr { border-color: #cbd6c8 !important; }
 @media (max-width: 700px) {
   [data-testid="stMainBlockContainer"], .block-container {
-    padding-top: 1.5rem !important; padding-bottom: 2rem !important;
+    padding-top: 3rem !important; padding-bottom: 2rem !important;
   }
   [data-testid="stSidebar"] > div:first-child { padding-bottom: 3.5rem !important; }
 }
