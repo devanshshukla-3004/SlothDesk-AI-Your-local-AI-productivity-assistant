@@ -19,5 +19,6 @@ def test_clean_json_normalizes_unknown_category():
 
 
 def test_clean_json_accepts_markdown_wrapped_json():
-    result = _clean_json('\\x60\\x60\\x60json\n{"category":"Code","suggested_name":"app.py"}\n\\x60\\x60\\x60')
+    fence = chr(96) * 3
+    result = _clean_json(f'{fence}json\n{{"category":"Code","suggested_name":"app.py"}}\n{fence}')
     assert result["suggested_name"] == "app.py"
