@@ -120,8 +120,8 @@ st.markdown("""
 [data-testid="stCaptionContainer"], [data-testid="stMarkdownContainer"] small {
   color: #526557 !important;
 }
-.stApp [data-testid="stWidgetLabel"],
-.stApp [data-testid="stWidgetLabel"] p { color: var(--sd-text) !important; }
+.stApp [data-testid="stMain"] [data-testid="stWidgetLabel], .stApp [data-testid="stMain"] [data-testid="stWidgetLabel"] p { color: var(--sd-text) !important; -webkit-text-fill-color: var(--sd-text) !important; }
+.stApp [data-testid="stSidebar"] [data-testid="stWidgetLabel], .stApp [data-testid="stSidebar"] [data-testid="stWidgetLabel"] p, .stApp [data-testid="stSidebar"] label, .stApp [data-testid="stSidebar"] label p, .stApp [data-testid="stSidebar"] [data-testid="stCheckbox"] p, .stApp [data-testid="stSidebar"] [data-testid="stTickBarMin"], .stApp [data-testid="stSidebar"] [data-testid="stTickBarMax"], .stApp [data-testid="stSidebar"] [data-testid="stSliderThumbValue"] { color: #e8efe9 !important; -webkit-text-fill-color: #e8efe9 !important; }
 /* Restore light readable helper text inside the dark sidebar */
 [data-testid="stSidebar"] [data-testid="stCaptionContainer"],
 [data-testid="stSidebar"] [data-testid="stCaptionContainer"] * { color: #c0cfc2 !important; }
@@ -138,6 +138,33 @@ hr { border-color: #cbd6c8 !important; }
   }
   [data-testid="stSidebar"] > div:first-child { padding-bottom: 3.5rem !important; }
 }
+/* Restore the original SlothDesk brand and hero design */
+.brand-row { display:flex; align-items:center; gap:.8rem; margin:.4rem 0 .5rem; }
+.brand-mark { width:42px; height:42px; border-radius:12px; background:#c8f26b; display:flex; align-items:center; justify-content:center; font-size:1.45rem; flex:0 0 42px; }
+.brand-name { font-size:1.12rem; font-weight:800; color:#fff !important; letter-spacing:-.01em; line-height:1.2; }
+.brand-sub { font-size:.76rem; color:#a9bcab !important; margin-top:2px; }
+.side-eyebrow { font-size:.72rem; font-weight:700; letter-spacing:.14em; color:#a9bcab !important; margin:.3rem 0 .2rem; }
+.hero { position:relative; overflow:hidden; border-radius:28px; background:linear-gradient(135deg,#284433 0%,#213a2d 100%); padding:2.6rem 2.8rem 2.2rem; margin-bottom:1.4rem; box-shadow:0 18px 40px rgba(23,43,33,.18); }
+.hero::after { content:""; position:absolute; right:-90px; top:-130px; width:380px; height:380px; border-radius:50%; border:48px solid rgba(200,242,107,.06); pointer-events:none; }
+.hero .tag { display:inline-flex; align-items:center; gap:.5rem; margin-bottom:1rem; font-size:.74rem; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:#c8f26b !important; }
+.hero .tag .dot { width:8px; height:8px; border-radius:50%; background:#c8f26b; display:inline-block; }
+.hero h1 { color:#fff !important; font-size:3.2rem !important; font-weight:800 !important; letter-spacing:-.02em !important; line-height:1.08 !important; margin:0 0 1rem !important; padding:0 !important; overflow-wrap:anywhere; }
+.hero p { color:#cbd9cd !important; max-width:660px; font-size:1rem; line-height:1.7; margin:0 0 1.4rem; }
+.hero-foot { display:flex; flex-wrap:wrap; gap:.6rem; }
+.hero-chip { display:inline-block; padding:.45rem .85rem; border-radius:12px; font-size:.78rem; color:#dfeadf !important; background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.12); }
+.metric-card { background:#e8eee5 !important; border:1px solid #bdcbbb !important; border-radius:22px !important; padding:1.3rem 1.4rem 1.2rem; min-height:130px; }
+.metric-top { display:flex; align-items:center; justify-content:space-between; margin-bottom:.7rem; }
+.metric-label { font-size:.7rem; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:#526557 !important; }
+.metric-icon { width:32px; height:32px; border-radius:10px; background:#d7e4d1; color:#3f6150 !important; display:flex; align-items:center; justify-content:center; font-size:.95rem; }
+.metric-value { font-size:2.1rem; font-weight:800; line-height:1.1; color:#26382d !important; letter-spacing:-.02em; }
+.metric-sub { font-size:.78rem; color:#526557 !important; margin-top:.45rem; }
+.section-label { font-size:.78rem !important; font-weight:700; letter-spacing:.2em; text-transform:uppercase; color:#526557 !important; margin:.4rem 0 .3rem !important; }
+.stApp [data-testid="stMain"] [data-testid="stCaptionContainer"], .stApp [data-testid="stMain"] [data-testid="stCaptionContainer"] * { color:#526557 !important; }
+.stApp [data-testid="stSidebar"] [data-testid="stCaptionContainer"], .stApp [data-testid="stSidebar"] [data-testid="stCaptionContainer"] * { color:#b4c5b6 !important; }
+[data-baseweb="select"] > div { background:#f0f4ec !important; border-color:#bdcbbb !important; }
+[data-baseweb="select"] * { color:#26382d !important; }
+[data-baseweb="slider"] [role="slider"] { background:#c8f26b !important; border:2px solid #3f7d3a !important; box-shadow:0 0 0 3px rgba(200,242,107,.25) !important; }
+@media (max-width:700px) { .hero { padding:1.6rem 1.3rem; } .hero h1 { font-size:2.1rem !important; } }
 </style>
 """, unsafe_allow_html=True)
 
@@ -150,7 +177,7 @@ if "last_results" not in st.session_state:
 
 with st.sidebar:
     st.markdown('<div class="brand-row"><div class="brand-mark">🦥</div><div><div class="brand-name">SlothDesk AI</div><div class="brand-sub">Your private file workspace</div></div></div>', unsafe_allow_html=True)
-    st.caption("LOCAL-FIRST PRODUCTIVITY")
+    st.markdown('<div class="side-eyebrow">LOCAL-FIRST PRODUCTIVITY</div>', unsafe_allow_html=True)
     st.divider()
     folder = st.text_input("Folder to organize", value=str(Path.home() / "Downloads"), help="Only this folder will be scanned. Nothing changes until you approve a plan.")
     recursive = st.checkbox("Include subfolders", value=False)
